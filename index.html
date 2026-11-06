@@ -3,10 +3,564 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>CST Student Portfolio</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --bg-soft: #111827;
+            --panel: #1f2937;
+            --panel-alt: #f8fafc;
+            --primary: #38bdf8;
+            --secondary: #22c55e;
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --dark-text: #0f172a;
+            --border: rgba(148, 163, 184, 0.2);
+            --shadow: 0 20px 40px rgba(15, 23, 42, 0.35);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #020817, #0f172a 40%, #111827);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: min(1100px, 90%);
+            margin: 0 auto;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .brand {
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            font-size: 0.95rem;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        .hero {
+            padding: 5rem 0 4rem;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.3fr 0.7fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            line-height: 1.1;
+            margin: 0 0 1rem;
+        }
+
+        .subtitle {
+            max-width: 620px;
+            color: var(--muted);
+            font-size: 1.08rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.9rem 1.5rem;
+            border-radius: 999px;
+            font-weight: 700;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), #60a5fa);
+            color: var(--dark-text);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-secondary {
+            border: 1px solid var(--border);
+            background: rgba(148, 163, 184, 0.04);
+            color: var(--text);
+        }
+
+        .stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .stat {
+            min-width: 100px;
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 1.6rem;
+            color: var(--text);
+        }
+
+        .stat span {
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+
+        .profile-card {
+            background: linear-gradient(180deg, rgba(31, 41, 55, 0.95), rgba(15, 23, 42, 0.85));
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .avatar {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.25), rgba(34, 197, 94, 0.2));
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            display: grid;
+            place-items: center;
+            color: var(--primary);
+            font-size: 5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .profile-info {
+            display: grid;
+            gap: 0.6rem;
+        }
+
+        .profile-info strong {
+            font-size: 1.4rem;
+        }
+
+        .label {
+            color: var(--muted);
+            font-size: 0.8rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        section {
+            padding: 2rem 0 4rem;
+        }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.8rem;
+        }
+
+        .section-heading h2 {
+            margin: 0;
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+        }
+
+        .section-heading span {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .about-grid,
+        .project-grid,
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: rgba(17, 24, 39, 0.9);
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .card p {
+            margin: 0;
+            color: var(--muted);
+        }
+
+        .skills-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 1.2rem;
+        }
+
+        .skill-tag {
+            background: rgba(56, 189, 248, 0.12);
+            color: var(--text);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 999px;
+            padding: 0.6rem 0.9rem;
+            font-size: 0.9rem;
+        }
+
+        .project-box {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .project-badge {
+            display: inline-flex;
+            width: fit-content;
+            background: rgba(34, 197, 94, 0.12);
+            color: #86efac;
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            border-radius: 999px;
+            padding: 0.4rem 0.7rem;
+            font-size: 0.75rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .project-box h3,
+        .card h3 {
+            margin: 0;
+            font-size: 1.4rem;
+        }
+
+        .project-box ul {
+            margin: 0;
+            padding-left: 1.2rem;
+            color: var(--muted);
+        }
+
+        .timeline {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .timeline-item {
+            padding: 1.2rem 1.2rem 1.2rem 1.5rem;
+            border-left: 2px solid var(--primary);
+            background: rgba(17, 24, 39, 0.7);
+            border-radius: 0 16px 16px 0;
+        }
+
+        .timeline-item span {
+            display: inline-block;
+            color: var(--primary);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.3rem;
+        }
+
+        .timeline-item h3 {
+            margin: 0 0 0.4rem;
+        }
+
+        .timeline-item p {
+            margin: 0;
+            color: var(--muted);
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .contact-item strong {
+            color: var(--text);
+        }
+
+        footer {
+            padding: 2rem 0 3rem;
+            text-align: center;
+            color: var(--muted);
+            border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 760px) {
+            .hero-grid,
+            .about-grid,
+            .project-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+
+            .section-heading {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello World
-    </h1>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="brand">CST Student</div>
+                <div class="nav-links">
+                    <a href="#about">About</a>
+                    <a href="#skills">Skills</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#education">Education</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container hero-grid">
+                <div>
+                    <p class="highlight">Hello, I’m a CST Student</p>
+                    <h1>Building digital solutions with technology and creativity.</h1>
+                    <p class="subtitle">
+                        I’m a Computer Systems Technology student focused on software development, networking, database systems,
+                        and user-centered problem solving. I enjoy turning ideas into practical tools that improve everyday experiences.
+                    </p>
+
+                    <div class="cta-row">
+                        <a class="btn btn-primary" href="#projects">View Projects</a>
+                        <a class="btn btn-secondary" href="#contact">Contact Me</a>
+                    </div>
+
+                    <div class="stats">
+                        <div class="stat">
+                            <strong>2+</strong>
+                            <span>Years Learning</span>
+                        </div>
+                        <div class="stat">
+                            <strong>8+</strong>
+                            <span>Projects</span>
+                        </div>
+                        <div class="stat">
+                            <strong>100%</strong>
+                            <span>Curiosity</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-card">
+                    <div class="avatar">CS</div>
+                    <div class="profile-info">
+                        <span class="label">Student Profile</span>
+                        <strong>Alex Martin</strong>
+                        <span>Computer Systems Technology</span>
+                        <span>Front-end Developer • IT Support • Problem Solver</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about">
+            <div class="container">
+                <div class="section-heading">
+                    <h2>About Me</h2>
+                    <span>Technology • Learning • Growth</span>
+                </div>
+
+                <div class="about-grid">
+                    <div class="card">
+                        <p>
+                            I am a motivated Computer Systems Technology student who enjoys learning how technology powers communication,
+                            productivity, and innovation. My academic journey has helped me build a foundation in programming, systems analysis,
+                            troubleshooting, and digital design.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <p>
+                            I like creating clean, user-friendly experiences and solving technical challenges with practical solutions. Whether I’m
+                            building a website, learning a new framework, or exploring systems architecture, I’m always looking for ways to improve.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills">
+            <div class="container">
+                <div class="section-heading">
+                    <h2>Skills</h2>
+                    <span>Core strengths</span>
+                </div>
+
+                <div class="card">
+                    <div class="skills-wrap">
+                        <span class="skill-tag">HTML</span>
+                        <span class="skill-tag">CSS</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">Linux</span>
+                        <span class="skill-tag">Networking</span>
+                        <span class="skill-tag">Troubleshooting</span>
+                        <span class="skill-tag">UI Design</span>
+                        <span class="skill-tag">Problem Solving</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <div class="container">
+                <div class="section-heading">
+                    <h2>Projects</h2>
+                    <span>Recent work</span>
+                </div>
+
+                <div class="project-grid">
+                    <div class="card project-box">
+                        <span class="project-badge">Web App</span>
+                        <h3>Student Task Dashboard</h3>
+                        <p>
+                            A productivity web app for students to organize assignments, track deadlines, and manage daily study goals.
+                        </p>
+                        <ul>
+                            <li>Built with HTML, CSS, and JavaScript</li>
+                            <li>Responsive layout for desktop and mobile</li>
+                            <li>Focused on usability and task management</li>
+                        </ul>
+                    </div>
+
+                    <div class="card project-box">
+                        <span class="project-badge">System</span>
+                        <h3>Inventory Tracker</h3>
+                        <p>
+                            A simple inventory management system for tracking stock levels, categories, and product updates.
+                        </p>
+                        <ul>
+                            <li>Database-driven data handling</li>
+                            <li>Practical CST application of data organization</li>
+                            <li>Improves accuracy and reporting</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="education">
+            <div class="container">
+                <div class="section-heading">
+                    <h2>Education</h2>
+                    <span>Academic path</span>
+                </div>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <span>2023 - Present</span>
+                        <h3>Computer Systems Technology Student</h3>
+                        <p>Focused on programming, systems analysis, networking, and real-world IT problem solving.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <span>Coursework</span>
+                        <h3>Web Development & Database Fundamentals</h3>
+                        <p>Developed skills in front-end design, scripting, data structure, and information systems.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <span>Growth</span>
+                        <h3>Learning by Building</h3>
+                        <p>Applying classroom knowledge through projects, practice labs, and collaborative technical work.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="container">
+                <div class="section-heading">
+                    <h2>Contact</h2>
+                    <span>Let’s connect</span>
+                </div>
+
+                <div class="contact-grid">
+                    <div class="card contact-item">
+                        <span class="label">Email</span>
+                        <strong>alex.martin@studentmail.com</strong>
+                    </div>
+                    <div class="card contact-item">
+                        <span class="label">Location</span>
+                        <strong>City, Country</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">© 2026 CST Student Portfolio</div>
+    </footer>
 </body>
 </html>
